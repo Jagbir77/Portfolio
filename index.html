@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jagbir Singh — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #0c0c0c;
+      --bg-card: #151515;
+      --bg-card-hover: #1a1a1a;
+      --text: #e8e4df;
+      --text-dim: #8a8580;
+      --accent: #d4a052;
+      --accent-dim: #b8863a;
+      --border: #2a2725;
+      --serif: 'Instrument Serif', Georgia, serif;
+      --sans: 'DM Sans', system-ui, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ─── GRAIN OVERLAY ─── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      pointer-events: none;
+      opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 1.2rem 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      background: rgba(12, 12, 12, 0.7);
+      border-bottom: 1px solid var(--border);
+      transition: all 0.3s ease;
+    }
+
+    .nav-logo {
+      font-family: var(--serif);
+      font-size: 1.3rem;
+      color: var(--accent);
+      text-decoration: none;
+      letter-spacing: 0.02em;
+    }
+
+    .nav-links { display: flex; gap: 2rem; }
+
+    .nav-links a {
+      color: var(--text-dim);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover { color: var(--accent); }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+
+    .hamburger span {
+      width: 24px;
+      height: 2px;
+      background: var(--text);
+      transition: all 0.3s;
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 8rem 2.5rem 4rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 0.8s ease 0.2s forwards;
+    }
+
+    .hero h1 {
+      font-family: var(--serif);
+      font-size: clamp(3rem, 8vw, 6.5rem);
+      line-height: 1.05;
+      font-weight: 400;
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 0.8s ease 0.4s forwards;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .hero-sub {
+      font-size: 1.15rem;
+      color: var(--text-dim);
+      max-width: 560px;
+      line-height: 1.7;
+      opacity: 0;
+      animation: fadeUp 0.8s ease 0.6s forwards;
+    }
+
+    .hero-cta {
+      margin-top: 2.5rem;
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 0.8s ease 0.8s forwards;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.85rem 2rem;
+      font-family: var(--sans);
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: var(--bg);
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-dim);
+      transform: translateY(-2px);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-dim);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      opacity: 0;
+      animation: fadeUp 0.8s ease 1s forwards;
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, var(--accent), transparent);
+      animation: scrollPulse 2s ease infinite;
+    }
+
+    /* ─── SECTIONS ─── */
+    section {
+      padding: 6rem 2.5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+
+    .section-title {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 400;
+      margin-bottom: 1rem;
+      line-height: 1.15;
+    }
+
+    .section-desc {
+      color: var(--text-dim);
+      max-width: 600px;
+      margin-bottom: 3rem;
+      font-size: 1.05rem;
+      line-height: 1.7;
+    }
+
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: var(--border);
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* ─── PROJECT CARDS ─── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .project-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      transition: all 0.4s ease;
+      position: relative;
+      cursor: default;
+    }
+
+    .project-card:hover {
+      border-color: var(--accent-dim);
+      background: var(--bg-card-hover);
+      transform: translateY(-4px);
+    }
+
+    .project-img {
+      width: 100%;
+      height: 240px;
+      object-fit: cover;
+      display: block;
+      filter: grayscale(20%);
+      transition: filter 0.4s ease;
+    }
+
+    .project-card:hover .project-img {
+      filter: grayscale(0%);
+    }
+
+    .project-body {
+      padding: 1.5rem;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .tag {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 0.3rem 0.7rem;
+      background: rgba(212, 160, 82, 0.1);
+      color: var(--accent);
+      border: 1px solid rgba(212, 160, 82, 0.2);
+      font-weight: 600;
+    }
+
+    .project-card h3 {
+      font-family: var(--serif);
+      font-size: 1.35rem;
+      font-weight: 400;
+      margin-bottom: 0.6rem;
+    }
+
+    .project-card p {
+      color: var(--text-dim);
+      font-size: 0.9rem;
+      line-height: 1.65;
+    }
+
+    /* ─── FULL-WIDTH PROJECT ─── */
+    .project-feature {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      margin-bottom: 3rem;
+      transition: border-color 0.3s;
+    }
+
+    .project-feature:hover { border-color: var(--accent-dim); }
+
+    .feature-images {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+    }
+
+    .feature-images img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      min-height: 200px;
+    }
+
+    .feature-images img.span-2 {
+      grid-column: span 2;
+    }
+
+    .feature-body {
+      padding: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .feature-body h3 {
+      font-family: var(--serif);
+      font-size: 1.8rem;
+      font-weight: 400;
+      margin-bottom: 1rem;
+    }
+
+    .feature-body p {
+      color: var(--text-dim);
+      line-height: 1.7;
+      margin-bottom: 1rem;
+    }
+
+    /* ─── EXPERIENCE TIMELINE ─── */
+    .timeline {
+      position: relative;
+      padding-left: 2rem;
+      border-left: 1px solid var(--border);
+    }
+
+    .timeline-item {
+      position: relative;
+      padding-bottom: 3rem;
+    }
+
+    .timeline-item:last-child { padding-bottom: 0; }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -2rem;
+      top: 0.4rem;
+      width: 8px;
+      height: 8px;
+      background: var(--accent);
+      transform: translateX(-50%) rotate(45deg);
+    }
+
+    .timeline-year {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .timeline-item h3 {
+      font-family: var(--serif);
+      font-size: 1.4rem;
+      font-weight: 400;
+      margin-bottom: 0.5rem;
+    }
+
+    .timeline-item p {
+      color: var(--text-dim);
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    .lesson {
+      margin-top: 0.75rem;
+      padding: 0.8rem 1rem;
+      background: rgba(212, 160, 82, 0.06);
+      border-left: 2px solid var(--accent);
+      font-size: 0.85rem;
+      color: var(--text);
+      font-style: italic;
+    }
+
+    /* ─── SKILLS ─── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+
+    .skill-group {
+      padding: 1.5rem;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+    }
+
+    .skill-group h4 {
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      font-weight: 400;
+      margin-bottom: 0.75rem;
+      color: var(--accent);
+    }
+
+    .skill-group ul {
+      list-style: none;
+    }
+
+    .skill-group li {
+      color: var(--text-dim);
+      font-size: 0.85rem;
+      padding: 0.3rem 0;
+      padding-left: 1rem;
+      position: relative;
+    }
+
+    .skill-group li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--border);
+    }
+
+    /* ─── CONTACT ─── */
+    .contact-section {
+      text-align: center;
+      padding: 8rem 2.5rem;
+    }
+
+    .contact-section .section-title {
+      margin-bottom: 1rem;
+    }
+
+    .contact-email {
+      font-family: var(--serif);
+      font-size: clamp(1.2rem, 3vw, 2rem);
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.3s;
+    }
+
+    .contact-email:hover {
+      border-bottom-color: var(--accent);
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      padding: 2rem 2.5rem;
+      text-align: center;
+      color: var(--text-dim);
+      font-size: 0.8rem;
+      border-top: 1px solid var(--border);
+    }
+
+    /* ─── IMAGE GALLERY ─── */
+    .gallery-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+    }
+
+    .gallery-row img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      border: 1px solid var(--border);
+      transition: all 0.3s;
+    }
+
+    .gallery-row img:hover {
+      border-color: var(--accent-dim);
+    }
+
+    /* ─── VIDEO EMBED ─── */
+    .video-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 560px;
+      margin-top: 1rem;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+    }
+
+    .video-wrapper video {
+      width: 100%;
+      display: block;
+    }
+
+    /* ─── LIGHTBOX ─── */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      background: rgba(0, 0, 0, 0.92);
+      backdrop-filter: blur(10px);
+      justify-content: center;
+      align-items: center;
+      cursor: zoom-out;
+    }
+
+    .lightbox.active { display: flex; }
+
+    .lightbox img {
+      max-width: 90vw;
+      max-height: 90vh;
+      object-fit: contain;
+    }
+
+    /* ─── ANIMATIONS ─── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.4; }
+      50% { opacity: 1; }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: rgba(12, 12, 12, 0.95);
+        backdrop-filter: blur(20px);
+        flex-direction: column;
+        padding: 1.5rem;
+        gap: 1rem;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .nav-links.open { display: flex; }
+
+      .hamburger { display: flex; }
+
+      .hero { padding: 7rem 1.5rem 4rem; }
+
+      section { padding: 4rem 1.5rem; }
+
+      .projects-grid { grid-template-columns: 1fr; }
+
+      .project-feature {
+        grid-template-columns: 1fr;
+      }
+
+      .feature-images { min-height: 250px; }
+
+      .feature-body { padding: 1.5rem; }
+
+      .gallery-row {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .skills-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .hero-scroll { display: none; }
+    }
+
+    @media (max-width: 480px) {
+      .skills-grid { grid-template-columns: 1fr; }
+      .gallery-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">Jagbir Singh</a>
+    <div class="nav-links" id="navLinks">
+      <a href="#projects">Projects</a>
+      <a href="#ventures">Ventures</a>
+      <a href="#experience">Journey</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-eyebrow">Designer · Builder · Maker</div>
+    <h1>I design things,<br>then <em>build</em> them.</h1>
+    <p class="hero-sub">
+      From CAD drawings to concrete staircases, from augmented reality filters to 3D-printed art — I bring ideas to life across disciplines.
+    </p>
+    <div class="hero-cta">
+      <a href="#projects" class="btn btn-primary">View Work ↓</a>
+      <a href="#contact" class="btn btn-outline">Get in Touch</a>
+    </div>
+    <div class="hero-scroll">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </header>
+
+  <div class="divider"></div>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="reveal">
+      <div class="section-label">01 — Projects</div>
+      <h2 class="section-title">Design & Engineering</h2>
+      <p class="section-desc">
+        A collection of work spanning CAD modelling, architectural design, and hands-on construction — from concept to reality.
+      </p>
+    </div>
+
+    <!-- STAIRCASE FEATURE -->
+    <div class="project-feature reveal">
+      <div class="feature-images">
+        <img src="assets/staircase-drawing.jpg" alt="Staircase CAD drawing with dimensions" class="span-2">
+        <img src="assets/staircase-finished-1.jpg" alt="Completed staircase front view">
+        <img src="assets/staircase-finished-2.jpg" alt="Completed staircase top view">
+      </div>
+      <div class="feature-body">
+        <div class="project-tags">
+          <span class="tag">CAD</span>
+          <span class="tag">Construction</span>
+          <span class="tag">Self-taught</span>
+        </div>
+        <h3>Residential Staircase — From Drawing to Concrete</h3>
+        <p>
+          Designed a complete residential staircase by self-learning through YouTube tutorials. Created a detailed 2D CAD plan with precise dimensions — 10'8" total rise, 18'9" total run, 7" risers, and 10" treads at 33" clear width.
+        </p>
+        <p>
+          The design was then built by masons on-site as part of a larger house renovation project that I managed end-to-end.
+        </p>
+      </div>
+    </div>
+
+    <!-- CAD PROJECTS GRID -->
+    <div class="projects-grid">
+      <div class="project-card reveal">
+        <img src="assets/belt-tightener-1.jpg" alt="Belt Tightener assembly exploded view" class="project-img">
+        <div class="project-body">
+          <div class="project-tags">
+            <span class="tag">CAD</span>
+            <span class="tag">Assembly</span>
+          </div>
+          <h3>Belt Tightener Assembly</h3>
+          <p>A 10-part mechanical assembly featuring a frame, bracket, pulley, shaft, bushings, and fasteners — all modelled with precise tolerances and documented with professional engineering drawings.</p>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <img src="assets/belt-tightener-2.jpg" alt="Belt Tightener frame detail drawing" class="project-img">
+        <div class="project-body">
+          <div class="project-tags">
+            <span class="tag">Technical Drawing</span>
+            <span class="tag">Detailing</span>
+          </div>
+          <h3>Frame — Detail Drawing</h3>
+          <p>Detailed engineering drawing of the belt tightener frame with section views (A-A, B-B), full dimensioning, and an isometric render at 1:1 scale.</p>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <img src="assets/cad-portfolio-cover.jpg" alt="CAD portfolio projects overview" class="project-img">
+        <div class="project-body">
+          <div class="project-tags">
+            <span class="tag">FreeCAD</span>
+            <span class="tag">Fusion 360</span>
+          </div>
+          <h3>Additional CAD Work</h3>
+          <p>Further projects include a bicycle stem, bicycle hub, HVAC duct system layout, and various mechanical components — created in FreeCAD and Fusion 360 using Part Design, Draft, Assembly, and Fasteners workbenches.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- CREATIVE VENTURES -->
+  <section id="ventures">
+    <div class="reveal">
+      <div class="section-label">02 — Ventures</div>
+      <h2 class="section-title">Creative Businesses & Experiments</h2>
+      <p class="section-desc">
+        Not every venture succeeds — but each one taught me something invaluable. Here are the businesses and experiments I pursued.
+      </p>
+    </div>
+
+    <!-- AR BUSINESS -->
+    <div class="project-feature reveal">
+      <div class="feature-images">
+        <div style="grid-column: span 2; display: flex; align-items: center; justify-content: center; background: #1a1a1a; padding: 2rem;">
+          <video controls preload="metadata" style="width: 100%; max-height: 400px; object-fit: contain;">
+            <source src="assets/ar-business-intro.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      </div>
+      <div class="feature-body">
+        <div class="project-tags">
+          <span class="tag">Augmented Reality</span>
+          <span class="tag">Business</span>
+          <span class="tag">2024</span>
+        </div>
+        <h3>Rubbal Studio — Augmented Reality Services</h3>
+        <p>
+          Launched an augmented reality business towards the end of college, offering custom social media filters and AR experiences for brands.
+        </p>
+        <p>
+          Built using JavaScript, Lens Studio, Spark AR Studio, and visual scripting. Created advertising videos with Photoshop, video editing tools, Canva, and incorporated 3D modelling for immersive effects.
+        </p>
+      </div>
+    </div>
+
+    <div class="projects-grid">
+      <div class="project-card reveal">
+        <img src="assets/relief-portrait.jpg" alt="3D relief portrait artwork" class="project-img">
+        <div class="project-body">
+          <div class="project-tags">
+            <span class="tag">Blender</span>
+            <span class="tag">3D Printing</span>
+            <span class="tag">AI Tools</span>
+          </div>
+          <h3>Photo-to-Relief Portrait Art</h3>
+          <p>Developed a process to convert photographs into 3D pop-relief portrait artwork using Blender, AI tools, and 3D printing. Explored this as a business venture — a valuable learning experience in product-market fit.</p>
+          <div class="lesson">Lesson: Great technique doesn't guarantee market demand. Validate before scaling.</div>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div style="height: 240px; overflow: hidden; background: #1a1a1a; display: flex; align-items: center; justify-content: center;">
+          <video muted loop preload="metadata" style="width: 100%; height: 100%; object-fit: cover;"
+                 onmouseover="this.play()" onmouseout="this.pause()">
+            <source src="assets/chocolate-concept.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="project-body">
+          <div class="project-tags">
+            <span class="tag">Product Design</span>
+            <span class="tag">Concept</span>
+          </div>
+          <h3>Photo-to-Chocolate Concept</h3>
+          <p>Experimented with turning photographs into chocolate moulds — combining food design with digital fabrication. Explored commercial viability but ultimately pivoted.</p>
+          <div class="lesson">Lesson: Fail fast, learn faster. Every dead end sharpens your sense of direction.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- EXPERIENCE / JOURNEY -->
+  <section id="experience">
+    <div class="reveal">
+      <div class="section-label">03 — Journey</div>
+      <h2 class="section-title">How I Got Here</h2>
+      <p class="section-desc">
+        A non-linear path through construction management, failed startups, and self-taught design.
+      </p>
+    </div>
+
+    <div class="timeline reveal">
+      <div class="timeline-item">
+        <div class="timeline-year">House Renovation</div>
+        <h3>Full Renovation Management</h3>
+        <p>
+          Took on full responsibility for a residential renovation project. Managed labour, controlled costs, coordinated masons and tradespeople, and made critical design decisions — including the staircase that I designed from scratch using YouTube tutorials.
+        </p>
+        <p style="margin-top: 0.5rem; color: var(--text-dim); font-size: 0.95rem;">
+          This experience taught me to evaluate every decision through the lens of cost vs. investment — a mindset I carry into all my work.
+        </p>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-year">2024 — College</div>
+        <h3>Augmented Reality Business</h3>
+        <p>
+          Started Rubbal Studio near the end of college — creating custom AR filters and brand experiences using JavaScript, Lens Studio, Spark AR, and video production tools.
+        </p>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-year">Creative Experiments</div>
+        <h3>3D Relief Portraits & Chocolate Art</h3>
+        <p>
+          Explored turning photos into 3D-printed relief art and chocolate moulds. Both taught me about prototyping, production workflows, and the gap between a cool idea and a viable product.
+        </p>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-year">Ongoing</div>
+        <h3>CAD & Engineering Design</h3>
+        <p>
+          Continuously building CAD skills using FreeCAD and Fusion 360 — from mechanical assemblies to architectural drawings. Proficient in Part Design, Draft, Assembly, Tech Draw, and Fasteners workbenches.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="reveal">
+      <div class="section-label">04 — Skills</div>
+      <h2 class="section-title">What I Work With</h2>
+    </div>
+
+    <div class="skills-grid reveal">
+      <div class="skill-group">
+        <h4>CAD & Engineering</h4>
+        <ul>
+          <li>FreeCAD</li>
+          <li>Fusion 360</li>
+          <li>Technical Drawing</li>
+          <li>Part Design & Assembly</li>
+          <li>2D Drafting</li>
+        </ul>
+      </div>
+
+      <div class="skill-group">
+        <h4>3D & Creative</h4>
+        <ul>
+          <li>Blender</li>
+          <li>3D Printing</li>
+          <li>AI-assisted Design</li>
+          <li>Photoshop</li>
+          <li>Canva</li>
+        </ul>
+      </div>
+
+      <div class="skill-group">
+        <h4>AR & Development</h4>
+        <ul>
+          <li>JavaScript</li>
+          <li>Lens Studio</li>
+          <li>Spark AR Studio</li>
+          <li>Visual Scripting</li>
+          <li>Video Editing</li>
+        </ul>
+      </div>
+
+      <div class="skill-group">
+        <h4>Project Management</h4>
+        <ul>
+          <li>Labour Management</li>
+          <li>Cost Estimation</li>
+          <li>On-site Coordination</li>
+          <li>Vendor Negotiation</li>
+          <li>Cost vs. Investment Analysis</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- CONTACT -->
+  <section id="contact" class="contact-section">
+    <div class="reveal">
+      <div class="section-label">05 — Contact</div>
+      <h2 class="section-title">Let's Work Together</h2>
+      <p style="color: var(--text-dim); margin-bottom: 2rem; font-size: 1.05rem;">
+        Open to opportunities in CAD design, engineering, and creative technology.
+      </p>
+      <a href="mailto:jagbir.singh.contact@gmail.com" class="contact-email">jagbir.singh.contact@gmail.com</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>&copy; 2025 Jagbir Singh. Built with purpose.</p>
+  </footer>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox">
+    <img src="" alt="Enlarged view" id="lightboxImg">
+  </div>
+
+  <script>
+    // Hamburger menu
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+    hamburger.addEventListener('click', () => {
+      navLinks.classList.toggle('open');
+    });
+
+    // Close mobile menu on link click
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => navLinks.classList.remove('open'));
+    });
+
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    reveals.forEach(el => observer.observe(el));
+
+    // Lightbox for images
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+
+    document.querySelectorAll('.project-img, .feature-images img, .gallery-row img').forEach(img => {
+      img.style.cursor = 'zoom-in';
+      img.addEventListener('click', (e) => {
+        e.stopPropagation();
+        lightboxImg.src = img.src;
+        lightbox.classList.add('active');
+      });
+    });
+
+    lightbox.addEventListener('click', () => {
+      lightbox.classList.remove('active');
+    });
+
+    // Smooth nav background on scroll
+    window.addEventListener('scroll', () => {
+      const nav = document.querySelector('nav');
+      if (window.scrollY > 50) {
+        nav.style.borderBottomColor = 'rgba(42, 39, 37, 0.8)';
+      } else {
+        nav.style.borderBottomColor = 'var(--border)';
+      }
+    });
+  </script>
+</body>
+</html>
