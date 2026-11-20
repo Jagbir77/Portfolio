@@ -634,6 +634,127 @@
       .hero-scroll { display: none; }
     }
 
+    /* ─── SOFTWARE CASE STUDY ─── */
+    .case-study {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      margin-bottom: 3rem;
+      transition: border-color 0.3s;
+    }
+
+    .case-study:hover { border-color: var(--accent-dim); }
+
+    .case-video {
+      position: relative;
+      width: 100%;
+      padding-top: 56.25%;
+      background: #0a0a0a;
+    }
+
+    .case-video iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .case-intro { padding: 2.5rem 2.5rem 0.5rem; }
+
+    .case-intro h3 {
+      font-family: var(--serif);
+      font-size: 2.2rem;
+      font-weight: 400;
+      margin-bottom: 1rem;
+    }
+
+    .case-intro p {
+      color: var(--text-dim);
+      max-width: 760px;
+    }
+
+    .case-part {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 2.5rem;
+      padding: 2.5rem;
+      border-top: 1px solid var(--border);
+      margin-top: 2rem;
+    }
+
+    .case-part + .case-part { margin-top: 0; }
+
+    .case-part-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .case-part h4 {
+      font-family: var(--serif);
+      font-size: 1.6rem;
+      font-weight: 400;
+      margin-bottom: 1rem;
+    }
+
+    .case-part p {
+      color: var(--text-dim);
+      margin-bottom: 1rem;
+    }
+
+    .case-part ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .case-part li {
+      color: var(--text-dim);
+      padding-left: 1.2rem;
+      position: relative;
+    }
+
+    .case-part li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.65em;
+      width: 6px;
+      height: 6px;
+      background: var(--accent);
+    }
+
+    .case-shots {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .case-shots figure { margin: 0; }
+
+    .case-shots img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border: 1px solid var(--border);
+    }
+
+    .case-shots figcaption {
+      font-size: 0.85rem;
+      color: var(--text-dim);
+      margin-top: 0.5rem;
+    }
+
+    @media (max-width: 900px) {
+      .case-part { grid-template-columns: 1fr; gap: 1.5rem; padding: 1.5rem; }
+      .case-intro { padding: 1.5rem 1.5rem 0; }
+      .case-intro h3 { font-size: 1.8rem; }
+    }
+
     @media (max-width: 480px) {
       .skills-grid { grid-template-columns: 1fr; }
       .gallery-row { grid-template-columns: 1fr; }
@@ -646,6 +767,7 @@
   <nav>
     <a href="#" class="nav-logo">Jagbir Singh</a>
     <div class="nav-links" id="navLinks">
+      <a href="#software">Software</a>
       <a href="#projects">Projects</a>
       <a href="#ventures">Ventures</a>
       <a href="#experience">Journey</a>
@@ -662,10 +784,10 @@
     <div class="hero-eyebrow">Designer · Builder · Maker</div>
     <h1>I design things,<br>then <em>build</em> them.</h1>
     <p class="hero-sub">
-      From CAD drawings to concrete staircases, from augmented reality filters to 3D-printed art — I bring ideas to life across disciplines.
+      From an AI-powered German tutor to CAD drawings and concrete staircases, from augmented reality filters to 3D-printed art — I bring ideas to life across disciplines.
     </p>
     <div class="hero-cta">
-      <a href="#projects" class="btn btn-primary">View Work ↓</a>
+      <a href="#software" class="btn btn-primary">View Work ↓</a>
       <a href="#contact" class="btn btn-outline">Get in Touch</a>
     </div>
     <div class="hero-scroll">
@@ -676,10 +798,99 @@
 
   <div class="divider"></div>
 
+  <!-- SOFTWARE -->
+  <section id="software">
+    <div class="reveal">
+      <div class="section-label">01 — Software</div>
+      <h2 class="section-title">AI Products</h2>
+      <p class="section-desc">
+        Tools I have built with AI to solve problems I ran into myself.
+      </p>
+    </div>
+
+    <div class="case-study reveal">
+      <div class="case-video">
+        <iframe src="https://www.youtube.com/embed/rqeD-rA6rO0" title="German Tutor — web app and browser extension demo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      </div>
+
+      <div class="case-intro">
+        <div class="project-tags">
+          <span class="tag">AI</span>
+          <span class="tag">Web App</span>
+          <span class="tag">Browser Extension</span>
+          <span class="tag">Language Learning</span>
+        </div>
+        <h3>German Tutor — Web App & Browser Extension</h3>
+        <p>
+          An AI-powered system for learning German, made of two parts. The browser extension helps with reading and listening while you watch shows. The web app helps with writing, through conversations tailored to each learner.
+        </p>
+      </div>
+
+      <div class="case-part">
+        <div>
+          <div class="case-part-label">Part 1 · Reading & Listening</div>
+          <h4>Browser Extension for Netflix</h4>
+          <p>
+            Most subtitle extensions look words up in a dictionary. This one uses AI to translate each subtitle and give the meaning of every word in the context of that sentence.
+          </p>
+          <ul>
+            <li>Colour-codes nouns by gender (der, die, das).</li>
+            <li>Marks grammatical cases and labels parts of speech, verb forms and tenses.</li>
+            <li>A side panel lists all subtitles, so you can jump to any line.</li>
+            <li>An AI discussion panel next to the video, where you can ask about any line you find confusing.</li>
+          </ul>
+        </div>
+        <div class="case-shots">
+          <figure>
+            <img src="assets/german-ext-annotations.jpg" alt="Netflix player with colour-coded German subtitle annotations and a subtitle list" class="project-img" loading="lazy">
+            <figcaption>Colour-coded annotations under the video, with the full subtitle list on the right.</figcaption>
+          </figure>
+          <figure>
+            <img src="assets/german-ext-ai-panel.jpg" alt="AI discussion panel explaining German cases for a subtitle line" class="project-img" loading="lazy">
+            <figcaption>The AI discussion panel, open on the current subtitle line.</figcaption>
+          </figure>
+        </div>
+      </div>
+
+      <div class="case-part">
+        <div>
+          <div class="case-part-label">Part 2 · Writing</div>
+          <h4>Web App: a Personal German Teacher</h4>
+          <p>
+            During setup, learners answer questions such as why they are learning German, their current level, which exam they plan to take, and what their interests are.
+          </p>
+          <ul>
+            <li>The AI chat is tailored to the learner's profile, so practice is about topics they care about.</li>
+            <li>Learners can write in a mix of German and English. The AI corrects the mistakes and explains them with a sentence breakdown.</li>
+            <li>Nouns, cases and parts of speech are colour-coded, the same way as in the extension.</li>
+            <li>Each sentence has its own discussion thread, so questions about it stay in one place.</li>
+            <li>Read-aloud, flashcards, a list of past conversations, and a light/dark mode toggle.</li>
+          </ul>
+        </div>
+        <div class="case-shots">
+          <figure>
+            <img src="assets/german-webapp-correction.jpg" alt="German tutor web app correcting a mixed-language sentence with a colour-coded breakdown" class="project-img" loading="lazy">
+            <figcaption>A mixed-language message, corrected with a sentence breakdown.</figcaption>
+          </figure>
+          <figure>
+            <img src="assets/german-webapp-discuss.jpg" alt="Sentence breakdown with a Discuss this sentence link and a list of corrections" class="project-img" loading="lazy">
+            <figcaption>"Discuss this sentence" opens a separate thread for that sentence.</figcaption>
+          </figure>
+          <figure>
+            <img src="assets/german-webapp-dark.jpg" alt="German tutor web app in dark mode" class="project-img" loading="lazy">
+            <figcaption>Dark mode.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
   <!-- PROJECTS -->
   <section id="projects">
     <div class="reveal">
-      <div class="section-label">01 — Projects</div>
+      <div class="section-label">02 — Projects</div>
       <h2 class="section-title">Design & Engineering</h2>
       <p class="section-desc">
         A collection of work spanning CAD modelling, architectural design, and hands-on construction — from concept to reality.
@@ -754,7 +965,7 @@
   <!-- CREATIVE VENTURES -->
   <section id="ventures">
     <div class="reveal">
-      <div class="section-label">02 — Ventures</div>
+      <div class="section-label">03 — Ventures</div>
       <h2 class="section-title">Creative Businesses & Experiments</h2>
       <p class="section-desc">
         Not every venture succeeds — but each one taught me something invaluable. Here are the businesses and experiments I pursued.
@@ -822,14 +1033,22 @@
   <!-- EXPERIENCE / JOURNEY -->
   <section id="experience">
     <div class="reveal">
-      <div class="section-label">03 — Journey</div>
+      <div class="section-label">04 — Journey</div>
       <h2 class="section-title">How I Got Here</h2>
       <p class="section-desc">
-        A non-linear path through construction management, failed startups, and self-taught design.
+        A non-linear path through construction management, failed startups, self-taught design, and AI products.
       </p>
     </div>
 
     <div class="timeline reveal">
+      <div class="timeline-item">
+        <div class="timeline-year">Latest</div>
+        <h3>AI German Tutor</h3>
+        <p>
+          Built an AI-powered web app and Netflix browser extension for learning German. The extension annotates subtitles with grammar and context-aware meanings; the web app gives personalised writing practice and corrections.
+        </p>
+      </div>
+
       <div class="timeline-item">
         <div class="timeline-year">House Renovation</div>
         <h3>Full Renovation Management</h3>
@@ -872,7 +1091,7 @@
   <!-- SKILLS -->
   <section id="skills">
     <div class="reveal">
-      <div class="section-label">04 — Skills</div>
+      <div class="section-label">05 — Skills</div>
       <h2 class="section-title">What I Work With</h2>
     </div>
 
@@ -911,6 +1130,17 @@
       </div>
 
       <div class="skill-group">
+        <h4>AI & Software</h4>
+        <ul>
+          <li>AI-powered Web Apps</li>
+          <li>Browser Extensions</li>
+          <li>Prompt Design</li>
+          <li>Product Design</li>
+          <li>UI/UX</li>
+        </ul>
+      </div>
+
+      <div class="skill-group">
         <h4>Project Management</h4>
         <ul>
           <li>Labour Management</li>
@@ -928,10 +1158,10 @@
   <!-- CONTACT -->
   <section id="contact" class="contact-section">
     <div class="reveal">
-      <div class="section-label">05 — Contact</div>
+      <div class="section-label">06 — Contact</div>
       <h2 class="section-title">Let's Work Together</h2>
       <p style="color: var(--text-dim); margin-bottom: 2rem; font-size: 1.05rem;">
-        Open to opportunities in CAD design, engineering, and creative technology.
+        Open to opportunities in AI products, CAD design, engineering, and creative technology.
       </p>
       <a href="mailto:jagbir.singh.contact@gmail.com" class="contact-email">jagbir.singh.contact@gmail.com</a>
     </div>
@@ -939,7 +1169,7 @@
 
   <!-- FOOTER -->
   <footer>
-    <p>&copy; 2025 Jagbir Singh. Built with purpose.</p>
+    <p>&copy; 2026 Jagbir Singh. Built with purpose.</p>
   </footer>
 
   <!-- LIGHTBOX -->
