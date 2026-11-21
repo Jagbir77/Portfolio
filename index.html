@@ -660,7 +660,13 @@
       border: 0;
     }
 
-    .case-intro { padding: 2.5rem 2.5rem 0.5rem; }
+    .case-top {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      align-items: center;
+    }
+
+    .case-intro { padding: 2rem 2.5rem; }
 
     .case-intro h3 {
       font-family: var(--serif);
@@ -680,7 +686,6 @@
       gap: 2.5rem;
       padding: 2.5rem;
       border-top: 1px solid var(--border);
-      margin-top: 2rem;
     }
 
     .case-part + .case-part { margin-top: 0; }
@@ -750,6 +755,35 @@
       margin-top: 0.5rem;
     }
 
+    .case-shots .shot-extra { display: none; }
+
+    .shots-more {
+      align-self: flex-start;
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--accent);
+      font-family: var(--sans);
+      font-size: 0.85rem;
+      letter-spacing: 0.04em;
+      padding: 0.55rem 1rem;
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+    .shots-more:hover { border-color: var(--accent); }
+
+    .lightbox { flex-direction: column; gap: 1rem; }
+    .lightbox img { max-height: 80vh; }
+    .lb-caption { color: #ccc; font-size: 0.9rem; text-align: center; max-width: 80vw; }
+    .lb-nav {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      background: rgba(255,255,255,0.08); border: none; color: #fff;
+      font-size: 2rem; width: 3rem; height: 3rem; cursor: pointer; display: none;
+    }
+    .lb-nav:hover { background: rgba(255,255,255,0.18); }
+    .lb-prev { left: 1.5rem; }
+    .lb-next { right: 1.5rem; }
+    .lightbox.gallery .lb-nav { display: block; }
+
     .case-cover { margin: 0; position: relative; }
 
     .case-cover img {
@@ -803,7 +837,8 @@
 
     @media (max-width: 900px) {
       .case-part { grid-template-columns: 1fr; gap: 1.5rem; padding: 1.5rem; }
-      .case-intro { padding: 1.5rem 1.5rem 0; }
+      .case-top { grid-template-columns: 1fr; }
+      .case-intro { padding: 1.5rem; }
       .case-intro h3 { font-size: 1.8rem; }
       .case-cover figcaption { font-size: 0.6rem; right: 0.4rem; bottom: 0.4rem; padding: 0.2rem 0.45rem; }
     }
@@ -861,6 +896,7 @@
     </div>
 
     <div class="case-study reveal">
+      <div class="case-top">
       <div class="case-video">
         <iframe src="https://www.youtube.com/embed/rqeD-rA6rO0" title="German Tutor — web app and browser extension demo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
       </div>
@@ -876,6 +912,8 @@
         <p>
           An AI-powered system for learning German, made of two parts. The browser extension helps with reading and listening while you watch shows. The web app helps with writing, through conversations tailored to each learner.
         </p>
+      </div>
+
       </div>
 
       <div class="case-part">
@@ -897,10 +935,11 @@
             <img src="assets/german-ext-annotations.jpg" alt="Netflix player with colour-coded German subtitle annotations and a subtitle list" class="project-img" loading="lazy">
             <figcaption>Colour-coded annotations under the video, with the full subtitle list on the right.</figcaption>
           </figure>
-          <figure>
+          <figure class="shot-extra">
             <img src="assets/german-ext-ai-panel.jpg" alt="AI discussion panel explaining German cases for a subtitle line" class="project-img" loading="lazy">
             <figcaption>The AI discussion panel, open on the current subtitle line.</figcaption>
           </figure>
+          <button type="button" class="shots-more">View all 2 screenshots →</button>
         </div>
       </div>
 
@@ -924,14 +963,15 @@
             <img src="assets/german-webapp-correction.jpg" alt="German tutor web app correcting a mixed-language sentence with a colour-coded breakdown" class="project-img" loading="lazy">
             <figcaption>A mixed-language message, corrected with a sentence breakdown.</figcaption>
           </figure>
-          <figure>
+          <figure class="shot-extra">
             <img src="assets/german-webapp-discuss.jpg" alt="Sentence breakdown with a Discuss this sentence link and a list of corrections" class="project-img" loading="lazy">
             <figcaption>"Discuss this sentence" opens a separate thread for that sentence.</figcaption>
           </figure>
-          <figure>
+          <figure class="shot-extra">
             <img src="assets/german-webapp-dark.jpg" alt="German tutor web app in dark mode" class="project-img" loading="lazy">
             <figcaption>Dark mode.</figcaption>
           </figure>
+          <button type="button" class="shots-more">View all 3 screenshots →</button>
         </div>
       </div>
     </div>
@@ -1254,7 +1294,10 @@
 
   <!-- LIGHTBOX -->
   <div class="lightbox" id="lightbox">
+    <button type="button" class="lb-nav lb-prev" id="lbPrev" aria-label="Previous image">‹</button>
     <img src="" alt="Enlarged view" id="lightboxImg">
+    <div class="lb-caption" id="lbCaption"></div>
+    <button type="button" class="lb-nav lb-next" id="lbNext" aria-label="Next image">›</button>
   </div>
 
   <script>
@@ -1286,13 +1329,55 @@
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightboxImg');
 
+    const lbCaption = document.getElementById('lbCaption');
+    let gallery = [], gIndex = 0;
+
+    function showImage(i) {
+      gIndex = (i + gallery.length) % gallery.length;
+      const img = gallery[gIndex];
+      lightboxImg.src = img.src;
+      lightboxImg.alt = img.alt;
+      const cap = img.closest('figure')?.querySelector('figcaption');
+      const count = gallery.length > 1 ? `${gIndex + 1} / ${gallery.length}  ·  ` : '';
+      lbCaption.textContent = cap && gallery.length > 1 ? count + cap.textContent : '';
+    }
+
+    function openLightbox(imgs, i) {
+      gallery = imgs;
+      lightbox.classList.toggle('gallery', imgs.length > 1);
+      showImage(i);
+      lightbox.classList.add('active');
+    }
+
     document.querySelectorAll('.project-img, .feature-images img, .gallery-row img').forEach(img => {
       img.style.cursor = 'zoom-in';
       img.addEventListener('click', (e) => {
         e.stopPropagation();
-        lightboxImg.src = img.src;
-        lightbox.classList.add('active');
+        const group = img.closest('.case-shots');
+        if (group) {
+          const imgs = [...group.querySelectorAll('img')];
+          openLightbox(imgs, imgs.indexOf(img));
+        } else {
+          openLightbox([img], 0);
+        }
       });
+    });
+
+    document.querySelectorAll('.shots-more').forEach(btn => {
+      btn.addEventListener('click', () => {
+        openLightbox([...btn.closest('.case-shots').querySelectorAll('img')], 0);
+      });
+    });
+
+    document.getElementById('lbPrev').addEventListener('click', (e) => { e.stopPropagation(); showImage(gIndex - 1); });
+    document.getElementById('lbNext').addEventListener('click', (e) => { e.stopPropagation(); showImage(gIndex + 1); });
+    lightboxImg.addEventListener('click', (e) => { if (gallery.length > 1) { e.stopPropagation(); showImage(gIndex + 1); } });
+
+    document.addEventListener('keydown', (e) => {
+      if (!lightbox.classList.contains('active')) return;
+      if (e.key === 'Escape') lightbox.classList.remove('active');
+      if (e.key === 'ArrowRight' && gallery.length > 1) showImage(gIndex + 1);
+      if (e.key === 'ArrowLeft' && gallery.length > 1) showImage(gIndex - 1);
     });
 
     lightbox.addEventListener('click', () => {
